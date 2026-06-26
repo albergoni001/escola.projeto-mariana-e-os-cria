@@ -2,13 +2,20 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mente Organizada - Painel do Aluno</title>
+    <title>Meu Aplicativo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Layout em Grade Principal (Sidebar + Conteúdo) -->
+    <!-- Todo o conteúdo do seu aplicativo (botões, calendário, etc) fica aqui -->
+    <div id="calendarGrid"></div>
+    <button id="btnSalvar">Salvar</button>
+
+    <!-- O JAVASCRIPT ENTRA AQUI (Última coisa antes do </body>) -->
+    <script src="script.js"></script>
+</body>
+</html>
+ <!-- Layout em Grade Principal (Sidebar + Conteúdo) -->
     <div class="dashboard-container">
         
         <!-- Barra Lateral de Navegação e Progresso -->
@@ -35,6 +42,12 @@
                 <a href="configuracoes.html">⚙️ Configurações</a>
             </nav>
 
+            <!-- Exemplo de botões no seu app -->
+           <button id="btnSalvar">Salvar Progresso</button>
+           <button id="btnLimpar">Limpar Tudo</button>
+           <button class="btn-troca-mes" data-mes="anterior">Mês Anterior</button>
+           <button class="btn-troca-mes" data-mes="proximo">Próximo Mês</button>
+
         </aside>
 
         <!-- Área Principal do Painel -->
@@ -55,10 +68,11 @@
                     <h2>📅 Calendário de Acompanhamento</h2>
                     <span class="tip">Clique nos dias em que você estudou para registrar seu progresso!</span>
                 </div>
-                
-                <div class="calendar-container">
-                    <div class="calendar-weekdays">
-                        <span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span>
+                         <!-- Cabeçalho dos dias da semana -->
+    <div class="weekdays-row">
+        <div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div>
+        <div>SEX</div><div>SÁB</div><div>DOM</div>
+    </div>
                     </div>
                     <div class="calendar-grid" id="calendarGrid">
                         <!-- Gerado dinamicamente -->
