@@ -1,0 +1,281 @@
+@import url('https://googleapis.com');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f7f5; /* Fundo cinza bem claro com toque esverdeado */
+    color: #2c3e50;
+    overflow-x: hidden;
+}
+
+/* Estrutura Dashboard */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Barra Lateral (Sidebar) */
+.sidebar {
+    width: 280px;
+    background-color: #0b3c5d; /* Azul escuro principal */
+    color: #ffffff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-area h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.notebook-icon {
+    font-size: 1.8rem;
+}
+
+/* Widget de Desenvolvimento */
+.progress-widget {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #32a852; /* Detalhe em Verde */
+}
+
+.progress-widget h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.progress-bar-container {
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.progress-bar {
+    background-color: #32a852; /* Verde indicador de sucesso */
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.progress-widget p {
+    font-size: 0.75rem;
+    color: #cbd5e1;
+}
+
+/* Navegação da Sidebar */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background-color: #32a852; /* Transição para o Verde */
+    color: white;
+    font-weight: 500;
+}
+
+/* Área de Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cabeçalho Superior */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.header-titles h1 {
+    color: #0b3c5d;
+    font-size: 2.2rem;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.welcome-badge {
+    background-color: #e0f2fe;
+    border: 1px solid #bae6fd;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #0369a1;
+    font-weight: 600;
+}
+
+/* Seções Internas */
+.dashboard-section {
+    margin-bottom: 40px;
+}
+
+.section-title-container {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.dashboard-section h2 {
+    color: #0b3c5d;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.tip {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* Calendário Comercial / Amplo */
+.calendar-container {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 600;
+    color: #0b3c5d;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+/* Dias do Calendário Estilizados */
+.day {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.day:hover {
+    background-color: #f1f5f9;
+    border-color: #0b3c5d;
+}
+
+/* Dia Ativo (Estudado) usando o Verde e Azul */
+.day.checked {
+    background-color: #e6f4ea;
+    border-color: #32a852;
+    color: #137333;
+    box-shadow: inset 0 0 0 2px #32a852;
+}
+
+/* Grid de Funcionalidades */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    border-color: #0b3c5d;
+}
+
+/* Badges Baseados nas Cores Escolhidas */
+.card-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.card-badge.blue {
+    background-color: #e0f2fe;
+    color: #0b3c5d;
+}
+
+.card-badge.green {
+    background-color: #e6f4ea;
+    color: #32a852;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    color: #0b3c5d;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* Ajuste Responsivo */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

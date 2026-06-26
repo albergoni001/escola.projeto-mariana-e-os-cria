@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mente Organizada - Painel do Aluno</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Layout em Grade Principal (Sidebar + Conteúdo) -->
+    <div class="dashboard-container">
+        
+        <!-- Barra Lateral de Navegação e Progresso -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="notebook-icon">📖</div>
+                <h2>Mente Organizada</h2>
+            </div>
+            
+            <!-- Widget de Desenvolvimento Geral -->
+            <div class="progress-widget">
+                <h3>Seu Desenvolvimento</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="mainProgressBar" style="width: 35%;"></div>
+                </div>
+                <p id="progressStatus">35% das metas concluídas</p>
+            </div>
+
+            <!-- MENU ATUALIZADO COM OS LINKS CORRETOS -->
+             <nav class="sidebar-nav">
+                <a href="index.html" class="active">📅 Painel Geral</a>
+                <a href="estatisticas.html">📊 Estatísticas</a>
+                <a href="conquistas.html">🏆 Conquistas</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+
+        </aside>
+
+        <!-- Área Principal do Painel -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-titles">
+                    <h1>Mente Organizada</h1>
+                    <p class="subtitle">O caminho mais simples para aprender melhor!</p>
+                </div>
+                <div class="welcome-badge">
+                    <span>Seja Bem-Vindo! ✨</span>
+                </div>
+            </header>
+
+            <!-- Seção do Calendário de Frequência de Estudos -->
+            <section class="dashboard-section">
+                <div class="section-title-container">
+                    <h2>📅 Calendário de Acompanhamento</h2>
+                    <span class="tip">Clique nos dias em que você estudou para registrar seu progresso!</span>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-weekdays">
+                        <span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Métodos e Formas de Estudo (Grid Inferior Expandido) -->
+            <section class="dashboard-section">
+                <h2>🚀 Selecione a Melhor Forma de Estudar</h2>
+                <div class="features-grid">
+                    
+                    <div class="feature-card" onclick="openStudyMode('Idiomas')">
+                        <div class="card-badge green">ABC</div>
+                        <h3>Idiomas / Textos</h3>
+                        <p>Treine leitura, vocabulário e interpretação escrita.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="openStudyMode('Exatas')">
+                        <div class="card-badge blue">x² = y</div>
+                        <h3>Exatas & Fórmulas</h3>
+                        <p>Pratique cálculos, equações e raciocínio lógico.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="openStudyMode('Leitura')">
+                        <div class="card-badge green">TEXTO</div>
+                        <h3>Artigos & Resumos</h3>
+                        <p>Estude através de materiais teóricos e anotações.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="openStudyMode('Vídeos')">
+                        <div class="card-badge blue">VÍDEO</div>
+                        <h3>Videoaulas</h3>
+                        <p>Assista a conteúdos visuais e explicações gravadas.</p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

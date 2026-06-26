@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mente Organizada - Estatísticas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stats-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .stats-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #32a852; /* Nosso verde */
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Barra Lateral Igual -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="notebook-icon">📖</div>
+                <h2>Mente Organizada</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html">📅 Painel Geral</a>
+                <a href="estatisticas.html" class="active">📊 Estatísticas</a>
+                <a href="conquistas.html">🏆 Conquistas</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-titles">
+                    <h1>Métricas de Desenvolvimento 📊</h1>
+                    <p class="subtitle">Acompanhe sua consistência e evolução nos estudos.</p>
+                </div>
+            </header>
+
+            <section class="stats-container">
+                <div class="stats-card">
+                    <h3>Dias Estudados Este Mês</h3>
+                    <div class="stats-number" id="statsDias">--</div>
+                    <p>Ótimo ritmo! Continue focado.</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Aproveitamento Geral</h3>
+                    <div class="stats-number" id="statsPorcentagem">--%</div>
+                    <p>Em relação à meta de 31 dias.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // CORREÇÃO AQUI: Pega dinamicamente o aluno que fez o login
+            const alunoId = localStorage.getItem("aluno_logado") || "aluno_demonstracao";
+            
+            try {
+                const response = await fetch(`salvar.php?aluno_id=${alunoId}`);
+                const data = await response.json();
+                if (data.status === "sucesso") {
+                    const totalDias = data.dias.length;
+                    const porcentagem = Math.round((totalDias / 31) * 100);
+                    
+                    document.getElementById("statsDias").innerText = totalDias;
+                    document.getElementById("statsPorcentagem").innerText = `${porcentagem}%`;
+                }
+            } catch (error) {
+                console.error("Erro ao carregar estatísticas:", error);
+            }
+        });
+    </script>
+</body>
+</html>
