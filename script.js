@@ -1,86 +1,179 @@
-// LINHA ATUALIZADA: Pega o ID de quem acabou de logar na tela de login
-const alunoId = localStorage.getItem("aluno_logado") || "aluno_demonstracao";
-
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const alunoId = localStorage.getItem("aluno_id") || "aluno_demonstracao";
     const calendarGrid = document.getElementById("calendarGrid");
-    const totalDays = 31;
+    const nomeMesEl = document.getElementById("nomeMes");
     let savedDays = [];
 
-    // 1. CARREGAR DO BANCO DE DADOS VIA PHP
-    try {
-        const response = await fetch(`salvar.php?aluno_id=${alunoId}`);
-        const data = await response.json();
-        if (data.status === "sucesso") {
-            savedDays = data.dias;
-        }
-    } catch (error) {
-        console.error("Erro ao carregar dados do PHP:", error);
-    }
+    // CONTROLE DE MESES
+    const meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+    let mesAtual = 5; // 0=Jan, 5=Junho
+    let anoAtual = 2026;
+    let diasNoMes = 30; // padrão, muda conforme mês/ano
 
-    // Gerador de dias do mês
-    for (let i = 1; i <= totalDays; i++) {
-        const dayElement = document.createElement("div");
-        dayElement.classList.add("day");
-        
-        const dayString = i < 10 ? `0${i}` : `${i}`;
-        dayElement.innerText = dayString;
+    // ==============================================
+    // 🔹 NAVEGAÇÃO ENTRE SEÇÕES (MENU LATERAL)
+    // ==============================================
+    const linksMenu = document.querySelectorAll(".sidebar-nav a");
+    const secoes = document.querySelectorAll(".dashboard-section");
+    const tituloPrincipal = document.getElementById("tituloPrincipal");
+    const subtituloPrincipal = document.getElementById("subtituloPrincipal");
 
-        // Se o dia já veio marcado do banco MySQL, adiciona a cor verde
-        if (savedDays.includes(dayString)) {
-            dayElement.classList.add("checked");
-        }
+    linksMenu.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            // remove ativo de todos
+            linksMenu.forEach(l => l.classList.remove("active"));
+            secoes.forEach(s => s.classList.remove("active"));
+            // adiciona ativo no clicado
+            link.classList.add("active");
+            const idSecao = link.dataset.section;
+            document.getElementById(`sec-${idSecao}`).classList.add("active");
 
-        // Clique para marcar/desmarcar o dia estudado
-        dayElement.addEventListener("click", async () => {
-            dayElement.classList.toggle("checked");
-            
-            // Atualiza a lista local baseada no clique
-            if (dayElement.classList.contains("checked")) {
-                if (!savedDays.includes(dayString)) savedDays.push(dayString);
-            } else {
-                savedDays = savedDays.filter(day => day !== dayString);
+            // altera título da página
+            switch(idSecao) {
+                case "desenvolvimento":
+                    tituloPrincipal.innerText = "Seu Desenvolvimento";
+                    subtituloPrincipal.innerText = "Acompanhe sua evolução dia a dia";
+                    break;
+                case "painel":
+                    tituloPrincipal.innerText = "Painel Geral";
+                    subtituloPrincipal.innerText = "O caminho mais simples para aprender melhor!";
+                    break;
+                case "estatisticas":
+                    tituloPrincipal.innerText = "Estatísticas";
+                    subtituloPrincipal.innerText = "Dados completos do seu desempenho";
+                    break;
+                case "conquistas":
+                    tituloPrincipal.innerText = "Conquistas";
+                    subtituloPrincipal.innerText = "Marcos alcançados na sua jornada";
+                    break;
+                case "configuracoes":
+                    tituloPrincipal.innerText = "Configurações";
+                    subtituloPrincipal.innerText = "Ajustes e preferências do sistema";
+                    break;
             }
-            
-            // 2. SALVAR NO BANCO DE DADOS VIA PHP (Envia em segundo plano)
-            try {
-                await fetch("salvar.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ aluno_id: alunoId, dias: savedDays })
-                });
-            } catch (error) {
-                console.error("Erro ao salvar dados via PHP:", error);
-            }
-
-            updateStudentProgress();
         });
+    });
 
-        calendarGrid.appendChild(dayElement);
+    // ==============================================
+    // 🔹 FUNÇÕES DE MÊS
+    // ==============================================
+    function atualizarNomeMes() {
+        nomeMesEl.innerText = `${meses[mesAtual]}/${anoAtual} — Clique no dia em que você estudou para registrar seu progresso!`;
     }
 
-    // Inicializa a barra de progresso na tela
-    updateStudentProgress();
+    function definirDiasDoMes() {
+        if ([0,2,4,6,7,9,11].includes(mesAtual)) diasNoMes = 31;
+        else if ([3,5,8,10].includes(mesAtual)) diasNoMes = 30;
+        else diasNoMes = (anoAtual %4===0) ? 29 : 28;
+    }
+
+    // ==============================================
+    // 🔹 CARREGAR / SALVAR / LIMPAR
+    // ==============================================
+    async function loadDays() {
+        try {
+            const res = await fetch(`salvar.php?aluno_id=${alunoId}&mes=${mesAtual}&ano=${anoAtual}`);
+            const data = await res.json();
+            if (data.status === "sucesso") savedDays = data.dias || [];
+        } catch(e) {
+            console.error("Erro ao carregar",e);
+        }
+        renderCalendar();
+        updateStudentProgress();
+    }
+
+    async function saveDaysToPHP() {
+        try {
+            await fetch("salvar.php", {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    aluno_id: alunoId,
+                    mes: mesAtual,
+                    ano: anoAtual,
+                    dias: savedDays
+                })
+            });
+            alert("✅ Progresso salvo com sucesso!");
+        } catch(e) {
+            alert("❌ Erro ao salvar");
+        }
+    }
+
+    function limparTudo() {
+        if(confirm("Deseja apagar TODOS os registros desse mês?")) {
+            savedDays = [];
+            saveDaysToPHP();
+            renderCalendar();
+            updateStudentProgress();
+        }
+    }
+
+    // ==============================================
+    // 🔹 RENDER CALENDÁRIO
+    // ==============================================
+    function renderCalendar() {
+        definirDiasDoMes();
+        atualizarNomeMes();
+        calendarGrid.innerHTML = "";
+
+        for(let i=1; i<=diasNoMes; i++) {
+            const el = document.createElement("div");
+            el.className = "day";
+            el.dataset.dia = i;
+            el.innerText = i;
+
+            if(savedDays.includes(i.toString())) el.classList.add("checked");
+
+            el.addEventListener("click", () => {
+                el.classList.toggle("checked");
+                const diaStr = i.toString();
+                savedDays = savedDays.includes(diaStr)
+                    ? savedDays.filter(d=>d!==diaStr)
+                    : [...savedDays, diaStr];
+                updateStudentProgress();
+            });
+
+            calendarGrid.appendChild(el);
+        }
+    }
+
+    // ==============================================
+    // 🔹 BARRA DE PROGRESSO
+    // ==============================================
+    function updateStudentProgress() {
+        const qtd = document.querySelectorAll(".day.checked").length;
+        const total = diasNoMes;
+        const porc = Math.round((qtd/total)*100) || 0;
+        document.getElementById("progressBar").style.width = porc+"%";
+        document.getElementById("progressStatus").innerText = `${porc}% das metas concluídas (${qtd} de ${total} dias)`;
+    }
+
+    // ==============================================
+    // 🔹 BOTÕES DE AÇÃO
+    // ==============================================
+    document.getElementById("btnSalvar").addEventListener("click", saveDaysToPHP);
+    document.getElementById("btnLimpar").addEventListener("click", limparTudo);
+
+    document.getElementById("btnAnterior").addEventListener("click", () => {
+        mesAtual--;
+        if(mesAtual < 0) { mesAtual=11; anoAtual--; }
+        loadDays();
+    });
+
+    document.getElementById("btnProximo").addEventListener("click", () => {
+        mesAtual++;
+        if(mesAtual > 11) { mesAtual=0; anoAtual++; }
+        loadDays();
+    });
+
+    // ==============================================
+    // 🔹 INICIAR
+    // ==============================================
+    loadDays();
 });
 
-// Mecânica de Acompanhamento de Desenvolvimento do Aluno
-function updateStudentProgress() {
-    const totalDays = 31;
-    const checkedDays = document.querySelectorAll(".day.checked").length;
-    
-    const progressPercentage = Math.round((checkedDays / totalDays) * 100);
-    
-    const progressBar = document.getElementById("mainProgressBar");
-    const progressStatus = document.getElementById("progressStatus");
-    
-    progressBar.style.width = `${progressPercentage}%`;
-    progressStatus.innerText = `${progressPercentage}% das metas concluídas (${checkedDays} de ${totalDays} dias)`;
-}
-
-// Redirecionamento das formas de estudo
-function openStudyMode(modeName) {
-    if (modeName === 'Idiomas') {
-        window.location.href = "idiomas.html";
-    } else {
-        alert(`O módulo de ${modeName} está sendo preparado!`);
-    }
-}

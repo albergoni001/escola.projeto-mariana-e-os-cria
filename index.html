@@ -2,113 +2,156 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Meu Aplicativo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mente Organizada</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Todo o conteúdo do seu aplicativo (botões, calendário, etc) fica aqui -->
-    <div id="calendarGrid"></div>
-    <button id="btnSalvar">Salvar</button>
-
-    <!-- O JAVASCRIPT ENTRA AQUI (Última coisa antes do </body>) -->
-    <script src="script.js"></script>
-</body>
-</html>
- <!-- Layout em Grade Principal (Sidebar + Conteúdo) -->
     <div class="dashboard-container">
-        
-        <!-- Barra Lateral de Navegação e Progresso -->
+        <!-- Barra Lateral -->
         <aside class="sidebar">
             <div class="logo-area">
-                <div class="notebook-icon">📖</div>
+                <img src="logo-mental.png" alt="Logo Mente Organizada" style="width: 40px; height: auto;">
                 <h2>Mente Organizada</h2>
             </div>
-            
-            <!-- Widget de Desenvolvimento Geral -->
-            <div class="progress-widget">
-                <h3>Seu Desenvolvimento</h3>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="mainProgressBar" style="width: 35%;"></div>
-                </div>
-                <p id="progressStatus">35% das metas concluídas</p>
-            </div>
 
-            <!-- MENU ATUALIZADO COM OS LINKS CORRETOS -->
-             <nav class="sidebar-nav">
-                <a href="index.html" class="active">📅 Painel Geral</a>
-                <a href="estatisticas.html">📊 Estatísticas</a>
-                <a href="conquistas.html">🏆 Conquistas</a>
-                <a href="configuracoes.html">⚙️ Configurações</a>
+            <nav class="sidebar-nav">
+                <a href="#" class="active" data-section="desenvolvimento">Seu Desenvolvimento</a>
+                <a href="#" data-section="painel">Painel Geral</a>
+                <a href="#" data-section="estatisticas">Estatísticas</a>
+                <a href="#" data-section="conquistas">Conquistas</a>
+                <a href="#" data-section="configuracoes">Configurações</a>
             </nav>
 
-            <!-- Exemplo de botões no seu app -->
-           <button id="btnSalvar">Salvar Progresso</button>
-           <button id="btnLimpar">Limpar Tudo</button>
-           <button class="btn-troca-mes" data-mes="anterior">Mês Anterior</button>
-           <button class="btn-troca-mes" data-mes="proximo">Próximo Mês</button>
+            <div class="progress-widget">
+                <h3>Seu Progresso</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p id="progressStatus">0% das metas concluídas (0 de 31 dias)</p>
+            </div>
 
+            <!-- BOTÕES DE AÇÃO -->
+            <div class="action-buttons">
+                <button id="btnSalvar">Salvar Progresso</button>
+                <button id="btnLimpar">Limpar Tudo</button>
+                <button id="btnAnterior">Mês Anterior</button>
+                <button id="btnProximo">Próximo Mês</button>
+            </div>
         </aside>
 
-        <!-- Área Principal do Painel -->
+        <!-- Conteúdo Principal -->
         <main class="main-content">
             <header class="main-header">
                 <div class="header-titles">
-                    <h1>Mente Organizada</h1>
-                    <p class="subtitle">O caminho mais simples para aprender melhor!</p>
+                    <h1 id="tituloPrincipal">Painel Geral</h1>
+                    <p class="subtitle" id="subtituloPrincipal">O caminho mais simples para aprender melhor!</p>
                 </div>
                 <div class="welcome-badge">
+                    <img src="imagem-principal.png" alt="Ilustração" style="width: 60px; height: auto; margin-right: 10px;">
                     <span>Seja Bem-Vindo! ✨</span>
                 </div>
             </header>
 
-            <!-- Seção do Calendário de Frequência de Estudos -->
-            <section class="dashboard-section">
+            <!-- SEÇÃO: DESENVOLVIMENTO -->
+            <section class="dashboard-section active" id="sec-desenvolvimento">
                 <div class="section-title-container">
-                    <h2>📅 Calendário de Acompanhamento</h2>
-                    <span class="tip">Clique nos dias em que você estudou para registrar seu progresso!</span>
+                    <h2>Calendário de Acompanhamento</h2>
+                    <p class="tip" id="nomeMes">Junho/2026 — Clique no dia em que você estudou para registrar seu progresso!</p>
                 </div>
-                         <!-- Cabeçalho dos dias da semana -->
-    <div class="weekdays-row">
-        <div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div>
-        <div>SEX</div><div>SÁB</div><div>DOM</div>
-    </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-weekdays">
+                        <div>SEG</div>
+                        <div>TER</div>
+                        <div>QUA</div>
+                        <div>QUI</div>
+                        <div>SEX</div>
+                        <div>SÁB</div>
+                        <div>DOM</div>
                     </div>
-                    <div class="calendar-grid" id="calendarGrid">
-                        <!-- Gerado dinamicamente -->
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: PAINEL GERAL -->
+            <section class="dashboard-section" id="sec-painel">
+                <div class="section-title-container">
+                    <h2>Visão Geral</h2>
+                    <p class="tip">Resumo completo da sua evolução nos estudos</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="card-badge green">Total</div>
+                        <h3>93 Dias Estudados</h3>
+                        <p>De 182 dias disponíveis no ano</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-badge blue">Média</div>
+                        <h3>4.5 dias / semana</h3>
+                        <p>Acima da meta de 3 dias semanais</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Métodos e Formas de Estudo (Grid Inferior Expandido) -->
-            <section class="dashboard-section">
-                <h2>🚀 Selecione a Melhor Forma de Estudar</h2>
+            <!-- SEÇÃO: ESTATÍSTICAS -->
+            <section class="dashboard-section" id="sec-estatisticas">
+                <div class="section-title-container">
+                    <h2>Estatísticas de Desempenho</h2>
+                    <p class="tip">Gráficos e dados detalhados do seu rendimento</p>
+                </div>
                 <div class="features-grid">
-                    
-                    <div class="feature-card" onclick="openStudyMode('Idiomas')">
-                        <div class="card-badge green">ABC</div>
-                        <h3>Idiomas / Textos</h3>
-                        <p>Treine leitura, vocabulário e interpretação escrita.</p>
+                    <div class="feature-card">
+                        <div class="card-badge green">Melhor Mês</div>
+                        <h3>Março/2026</h3>
+                        <p>87% dos dias estudados</p>
                     </div>
-
-                    <div class="feature-card" onclick="openStudyMode('Exatas')">
-                        <div class="card-badge blue">x² = y</div>
-                        <h3>Exatas & Fórmulas</h3>
-                        <p>Pratique cálculos, equações e raciocínio lógico.</p>
+                    <div class="feature-card">
+                        <div class="card-badge blue">Frequência</div>
+                        <h3>62% de presença</h3>
+                        <p>Em todos os meses registrados</p>
                     </div>
+                </div>
+            </section>
 
-                    <div class="feature-card" onclick="openStudyMode('Leitura')">
-                        <div class="card-badge green">TEXTO</div>
-                        <h3>Artigos & Resumos</h3>
-                        <p>Estude através de materiais teóricos e anotações.</p>
+            <!-- SEÇÃO: CONQUISTAS -->
+            <section class="dashboard-section" id="sec-conquistas">
+                <div class="section-title-container">
+                    <h2>Suas Conquistas</h2>
+                    <p class="tip">Marcos atingidos na sua jornada de estudos</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="card-badge green">🏆 Recorde</div>
+                        <h3>15 dias seguidos</h3>
+                        <p>Alcançado em Abril/2026</p>
                     </div>
-
-                    <div class="feature-card" onclick="openStudyMode('Vídeos')">
-                        <div class="card-badge blue">VÍDEO</div>
-                        <h3>Videoaulas</h3>
-                        <p>Assista a conteúdos visuais e explicações gravadas.</p>
+                    <div class="feature-card">
+                        <div class="card-badge blue">📚 Meta Batida</div>
+                        <h3>5 Meses consecutivos</h3>
+                        <p>Acima de 70% de aproveitamento</p>
                     </div>
+                </div>
+            </section>
 
+            <!-- SEÇÃO: CONFIGURAÇÕES -->
+            <section class="dashboard-section" id="sec-configuracoes">
+                <div class="section-title-container">
+                    <h2>Configurações do Sistema</h2>
+                    <p class="tip">Ajustes de conta, notificações e preferências</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="card-badge green">Conta</div>
+                        <h3>Dados de Acesso</h3>
+                        <p>Alterar senha, e-mail e perfil</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-badge blue">Preferências</div>
+                        <h3>Calendário e Metas</h3>
+                        <p>Definir dias de estudo e lembretes</p>
+                    </div>
                 </div>
             </section>
         </main>
@@ -117,3 +160,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
