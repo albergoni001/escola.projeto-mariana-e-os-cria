@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenteOrganizada - Painel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="navbar">
+        <div class="nav-logo">
+            <span class="brain">🧠</span> MenteOrganizada
+        </div>
+        <div class="user-info">
+            <span>Olá, Aluno(a)</span>
+            <button class="btn-logout" onclick="window.location.href='index.html'">Sair</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <h2>Visão Geral dos Estudos</h2>
+        
+        <div class="cards-grid">
+            
+            <div class="card">
+                <h3>Frequência</h3>
+                <div class="card-content">
+                    <p class="big-number error">12</p>
+                    <p>Faltas Totais</p>
+                    <p class="status">Cuidado com o limite!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Tarefas Pendentes</h3>
+                <div class="card-content">
+                    <p class="big-number success">3</p>
+                    <p>Para esta semana</p>
+                    <ul class="task-list">
+                        <li>Trabalho de Programação - 15/05</li>
+                        <li>Lista de Matemática - 17/05</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Últimas Notas</h3>
+                <div class="card-content">
+                    <ul class="grade-list">
+                        <li>Desenvolvimento Web: <strong>8.5</strong></li>
+                        <li>Banco de Dados: <strong>9.0</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
+

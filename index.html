@@ -3,161 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mente Organizada</title>
+    <title>MenteOrganizada - Login</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Barra Lateral -->
-        <aside class="sidebar">
-            <div class="logo-area">
-                <img src="logo-mental.png" alt="Logo Mente Organizada" style="width: 40px; height: auto;">
-                <h2>Mente Organizada</h2>
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <span class="brain">🧠</span>
+                <span class="book">📖</span>
+            </div>
+            <h1>MenteOrganizada</h1>
+            <p class="school-tag">CEEP Cleuza Eleuza Maria</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">E-mail ou Matrícula</label>
+                <input type="email" id="email" required placeholder="exemplo@escola.com">
             </div>
 
-            <nav class="sidebar-nav">
-                <a href="#" class="active" data-section="desenvolvimento">Seu Desenvolvimento</a>
-                <a href="#" data-section="painel">Painel Geral</a>
-                <a href="#" data-section="estatisticas">Estatísticas</a>
-                <a href="#" data-section="conquistas">Conquistas</a>
-                <a href="#" data-section="configuracoes">Configurações</a>
-            </nav>
-
-            <div class="progress-widget">
-                <h3>Seu Progresso</h3>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-                <p id="progressStatus">0% das metas concluídas (0 de 31 dias)</p>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" required placeholder="Digite sua senha">
             </div>
 
-            <!-- BOTÕES DE AÇÃO -->
-            <div class="action-buttons">
-                <button id="btnSalvar">Salvar Progresso</button>
-                <button id="btnLimpar">Limpar Tudo</button>
-                <button id="btnAnterior">Mês Anterior</button>
-                <button id="btnProximo">Próximo Mês</button>
+            <div class="input-group user-type">
+                <label>Acessar como:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="userType" value="aluno" checked> Aluno</label>
+                    <label><input type="radio" name="userType" value="responsavel"> Responsável</label>
+                </div>
             </div>
-        </aside>
 
-        <!-- Conteúdo Principal -->
-        <main class="main-content">
-            <header class="main-header">
-                <div class="header-titles">
-                    <h1 id="tituloPrincipal">Painel Geral</h1>
-                    <p class="subtitle" id="subtituloPrincipal">O caminho mais simples para aprender melhor!</p>
-                </div>
-                <div class="welcome-badge">
-                    <img src="imagem-principal.png" alt="Ilustração" style="width: 60px; height: auto; margin-right: 10px;">
-                    <span>Seja Bem-Vindo! ✨</span>
-                </div>
-            </header>
-
-            <!-- SEÇÃO: DESENVOLVIMENTO -->
-            <section class="dashboard-section active" id="sec-desenvolvimento">
-                <div class="section-title-container">
-                    <h2>Calendário de Acompanhamento</h2>
-                    <p class="tip" id="nomeMes">Junho/2026 — Clique no dia em que você estudou para registrar seu progresso!</p>
-                </div>
-
-                <div class="calendar-container">
-                    <div class="calendar-weekdays">
-                        <div>SEG</div>
-                        <div>TER</div>
-                        <div>QUA</div>
-                        <div>QUI</div>
-                        <div>SEX</div>
-                        <div>SÁB</div>
-                        <div>DOM</div>
-                    </div>
-                    <div class="calendar-grid" id="calendarGrid"></div>
-                </div>
-            </section>
-
-            <!-- SEÇÃO: PAINEL GERAL -->
-            <section class="dashboard-section" id="sec-painel">
-                <div class="section-title-container">
-                    <h2>Visão Geral</h2>
-                    <p class="tip">Resumo completo da sua evolução nos estudos</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="card-badge green">Total</div>
-                        <h3>93 Dias Estudados</h3>
-                        <p>De 182 dias disponíveis no ano</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-badge blue">Média</div>
-                        <h3>4.5 dias / semana</h3>
-                        <p>Acima da meta de 3 dias semanais</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEÇÃO: ESTATÍSTICAS -->
-            <section class="dashboard-section" id="sec-estatisticas">
-                <div class="section-title-container">
-                    <h2>Estatísticas de Desempenho</h2>
-                    <p class="tip">Gráficos e dados detalhados do seu rendimento</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="card-badge green">Melhor Mês</div>
-                        <h3>Março/2026</h3>
-                        <p>87% dos dias estudados</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-badge blue">Frequência</div>
-                        <h3>62% de presença</h3>
-                        <p>Em todos os meses registrados</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEÇÃO: CONQUISTAS -->
-            <section class="dashboard-section" id="sec-conquistas">
-                <div class="section-title-container">
-                    <h2>Suas Conquistas</h2>
-                    <p class="tip">Marcos atingidos na sua jornada de estudos</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="card-badge green">🏆 Recorde</div>
-                        <h3>15 dias seguidos</h3>
-                        <p>Alcançado em Abril/2026</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-badge blue">📚 Meta Batida</div>
-                        <h3>5 Meses consecutivos</h3>
-                        <p>Acima de 70% de aproveitamento</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEÇÃO: CONFIGURAÇÕES -->
-            <section class="dashboard-section" id="sec-configuracoes">
-                <div class="section-title-container">
-                    <h2>Configurações do Sistema</h2>
-                    <p class="tip">Ajustes de conta, notificações e preferências</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="card-badge green">Conta</div>
-                        <h3>Dados de Acesso</h3>
-                        <p>Alterar senha, e-mail e perfil</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-badge blue">Preferências</div>
-                        <h3>Calendário e Metas</h3>
-                        <p>Definir dias de estudo e lembretes</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+            <button type="submit" class="btn-login">Entrar no Sistema</button>
+        </form>
+        <div id="message" class="message"></div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
